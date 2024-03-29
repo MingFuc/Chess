@@ -10,7 +10,7 @@ public class Rook : MonoBehaviour, IMoveable
     {
         if (gameObject.CompareTag("Black"))
             _oppositeId = 1;
-        else
+        else if (gameObject.CompareTag("White"))
             _oppositeId = 2;
     }
 

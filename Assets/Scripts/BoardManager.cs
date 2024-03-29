@@ -37,6 +37,7 @@ public class BoardManager : MonoBehaviour
                 grid[i, j] = 0;
             }
         }
+        //grid[6,2] = 2;
     }
 
     private void Update()
