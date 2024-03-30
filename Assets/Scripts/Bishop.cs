@@ -5,13 +5,24 @@ using UnityEngine;
 public class Bishop : MonoBehaviour, IMoveable
 {
     int _oppositeId;
-
+    int _id;
     private void Awake()
     {
         if (gameObject.CompareTag("Black"))
+        {
+            _id = 2;
             _oppositeId = 1;
+        }
         else if (gameObject.CompareTag("White"))
+        {
+            _id = 1;
             _oppositeId = 2;
+        }
+    }
+
+    private void Start()
+    {
+        BoardManager.instance.allPiece.Add(new Vector2(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)), gameObject);
     }
 
     public List<Vector2> CheckValidBoxToMove()
@@ -138,5 +149,16 @@ public class Bishop : MonoBehaviour, IMoveable
 
 
         return _validPositionList;
+    }
+
+    public int DeletePositionToMove()
+    {
+        BoardManager.instance.grid[Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)] = 0;
+        return _id;
+    }
+
+    public int GetOppositeId()
+    {
+        return _oppositeId;
     }
 }
