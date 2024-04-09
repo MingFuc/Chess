@@ -1019,6 +1019,8 @@ MonoBehaviour:
   _validSign: {fileID: 56921562772503030, guid: e1630397d66f082469b26fc584db9c13, type: 3}
   validSign: []
   temporaryPiece: {fileID: 0}
+  remainingWhitePiece: []
+  remainingBlackPiece: []
 --- !u!1001 &1214816450
 PrefabInstance:
   m_ObjectHideFlags: 0

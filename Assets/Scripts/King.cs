@@ -6,23 +6,24 @@ public class King : MonoBehaviour, IMoveable
 {
     int _oppositeId;
     int _id;
-    private void Awake()
+
+
+    private void Start()
     {
         if (gameObject.CompareTag("Black"))
         {
             _id = 2;
             _oppositeId = 1;
+            BoardManager.instance.remainingBlackPiece.Add(gameObject);
         }
         else if (gameObject.CompareTag("White"))
         {
             _id = 1;
             _oppositeId = 2;
+            BoardManager.instance.remainingWhitePiece.Add(gameObject);
         }
-    }
-
-    private void Start()
-    {
         BoardManager.instance.allPiece.Add(new Vector2(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)), gameObject);
+        BoardManager.instance.grid[Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)] = _id;
     }
 
     public List<Vector2> CheckValidBoxToMove()
@@ -60,5 +61,14 @@ public class King : MonoBehaviour, IMoveable
     public int GetOppositeId()
     {
         return _oppositeId;
+    }
+    private void OnDisable()
+    {
+        if (_id == 1)
+        {
+            BoardManager.instance.GameOverMessage("white");
+        }
+        else
+            BoardManager.instance.GameOverMessage("Black");
     }
 }
