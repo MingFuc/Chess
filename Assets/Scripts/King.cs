@@ -62,13 +62,16 @@ public class King : MonoBehaviour, IMoveable
     {
         return _oppositeId;
     }
+
     private void OnDisable()
     {
-        if (_id == 1)
+        if (gameObject.CompareTag("Black"))
         {
-            BoardManager.instance.GameOverMessage("white");
+            BoardManager.instance.remainingBlackPiece.Remove(gameObject);
         }
-        else
-            BoardManager.instance.GameOverMessage("Black");
+        else if (gameObject.CompareTag("White"))
+        {
+            BoardManager.instance.remainingWhitePiece.Remove(gameObject);
+        }
     }
 }

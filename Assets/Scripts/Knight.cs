@@ -6,7 +6,7 @@ public class Knight : MonoBehaviour, IMoveable
 {
     int _oppositeId;
     int _id;
-    
+
 
     private void Start()
     {
@@ -22,8 +22,30 @@ public class Knight : MonoBehaviour, IMoveable
             _oppositeId = 2;
             BoardManager.instance.remainingWhitePiece.Add(gameObject);
         }
-        BoardManager.instance.allPiece.Add(new Vector2(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)), gameObject);
+
+        if (BoardManager.instance.allPiece.ContainsKey(new Vector2(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y))))
+        {
+            BoardManager.instance.allPiece.Remove(new Vector2(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)));
+            BoardManager.instance.allPiece.Add(new Vector2(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)), gameObject);
+        }
+        else
+        {
+            BoardManager.instance.allPiece.Add(new Vector2(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)), gameObject);
+        }
+
         BoardManager.instance.grid[Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)] = _id;
+    }
+
+    private void OnDisable()
+    {
+        if (gameObject.CompareTag("Black"))
+        {
+            BoardManager.instance.remainingBlackPiece.Remove(gameObject);
+        }
+        else if (gameObject.CompareTag("White"))
+        {
+            BoardManager.instance.remainingWhitePiece.Remove(gameObject);
+        }
     }
 
     public List<Vector2> CheckValidBoxToMove()

@@ -26,6 +26,18 @@ public class Pawn : MonoBehaviour, IMoveable
         BoardManager.instance.grid[Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)] = _id;
     }
 
+    private void OnDisable()
+    {
+        if (gameObject.CompareTag("Black"))
+        {
+            BoardManager.instance.remainingBlackPiece.Remove(gameObject);
+        }
+        else if (gameObject.CompareTag("White"))
+        {
+            BoardManager.instance.remainingWhitePiece.Remove(gameObject);
+        }
+    }
+
     public List<Vector2> CheckValidBoxToMove()
     {
         List<Vector2> _validPositionList = new();
